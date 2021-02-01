@@ -1,0 +1,572 @@
+package ui.admin;
+
+import model.User;
+import database.Koneksi;
+import database.SmartDatabase;
+import java.awt.Color;
+import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import ui.Login;
+import ui.user.DashboardUser;
+
+public class ListDataWarga extends javax.swing.JFrame {
+
+    private DefaultTableModel model; 
+    private SmartDatabase database;
+    private Connection conn;
+    private PreparedStatement pst; 
+    private ResultSet rst; 
+    private User dataUser = new User();
+
+    /**
+     * Creates new form DataWarga
+     */
+    public ListDataWarga(String pwd) {
+        initComponents();
+        dataUser.setPassword(pwd);
+        tbDataWarga.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 18));
+        tbDataWarga.getTableHeader().setOpaque(false);
+        tbDataWarga.getTableHeader().setBackground(new Color(87, 87, 87));
+        tbDataWarga.getTableHeader().setForeground(new Color(255, 255, 255));
+        tbDataWarga.setRowHeight(25);
+        tampilDataWarga();
+    }
+
+    public void tampilDataWarga() {
+        model = new DefaultTableModel();
+        model.addColumn("NIK");
+        model.addColumn("Nama");
+        model.addColumn("No KK");
+        model.addColumn("Tempat Lahir");
+        model.addColumn("Tgl Lahir");
+        model.addColumn("Gender");
+        model.addColumn("Agama");
+        model.addColumn("Pendidikan");
+        model.addColumn("Pekerjaan");
+        model.addColumn("Status");
+        model.addColumn("Warga Negara");
+        model.addColumn("Kode Domisili");
+        
+        try {
+            database = new SmartDatabase();
+            conn = Koneksi.koneksi();
+            pst = conn.prepareStatement(database.queryAllDataWarga());
+            rst = pst.executeQuery();
+
+             //mengambil semua data sesuai nama kolom yang diambil 
+            while (rst.next()) {
+                model.addRow(new Object[]{
+                    rst.getString("NIK"),
+                    rst.getString("Nama"),
+                    rst.getString("No_KK"),
+                    rst.getString("Tempat_lahir"),
+                    rst.getString("Tanggal_lahir"),
+                    rst.getString("Jenis_Kelamin"),
+                    rst.getString("Agama"),
+                    rst.getString("Pendidikan"),
+                    rst.getString("Pekerjaan"),
+                    rst.getString("Status_kawin"),
+                    rst.getString("Warga_negara"),
+                    rst.getString("Kd_domisili")});
+            }
+            tbDataWarga.setModel(model);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cariNama() {
+        model = new DefaultTableModel();
+        model.addColumn("NIK");
+        model.addColumn("Nama");
+        model.addColumn("No KK");
+        model.addColumn("Tempat Lahir");
+        model.addColumn("Tgl Lahir");
+        model.addColumn("Gender");
+        model.addColumn("Agama");
+        model.addColumn("Pendidikan");
+        model.addColumn("Pekerjaan");
+        model.addColumn("Status");
+        model.addColumn("Warga Negara");
+        model.addColumn("Kode Domisili");
+        try {
+            database = new SmartDatabase();
+            conn = Koneksi.koneksi();
+            pst = conn.prepareStatement(database.queryByName());
+            pst.setString(1, edtNama.getText());
+            rst = pst.executeQuery();
+
+            while (rst.next()) {
+                model.addRow(new Object[]{
+                    rst.getString("NIK"),
+                    rst.getString("Nama"),
+                    rst.getString("No_KK"),
+                    rst.getString("Tempat_lahir"),
+                    rst.getString("Tanggal_lahir"),
+                    rst.getString("Jenis_Kelamin"),
+                    rst.getString("Agama"),
+                    rst.getString("Pendidikan"),
+                    rst.getString("Pekerjaan"),
+                    rst.getString("Status_kawin"),
+                    rst.getString("Warga_negara"),
+                    rst.getString("Kd_domisili")});
+            }
+            tbDataWarga.setModel(model);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void delete(String nik, String kdDomisili){
+        try{
+            database = new SmartDatabase();
+            conn = Koneksi.koneksi();
+            pst = conn.prepareStatement(database.deleteWarga());
+            pst.setString(1, nik);
+            pst.setString(2, kdDomisili);
+            pst.execute();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        btnLogOut = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        btnProfile = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        btnDataWarga = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        btnDashboard = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        btnClose = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        btnMinimize = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbDataWarga = new javax.swing.JTable();
+        edtNama = new javax.swing.JTextField();
+        btnCari = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnLogOut.setBackground(new java.awt.Color(104, 104, 104));
+        btnLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLogOutMouseClicked(evt);
+            }
+        });
+
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Pictures\\Figma project\\SMART RT RW\\log out.png")); // NOI18N
+
+        javax.swing.GroupLayout btnLogOutLayout = new javax.swing.GroupLayout(btnLogOut);
+        btnLogOut.setLayout(btnLogOutLayout);
+        btnLogOutLayout.setHorizontalGroup(
+            btnLogOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnLogOutLayout.createSequentialGroup()
+                .addComponent(jLabel6)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        btnLogOutLayout.setVerticalGroup(
+            btnLogOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnLogOutLayout.createSequentialGroup()
+                .addComponent(jLabel6)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(btnLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
+
+        btnProfile.setBackground(new java.awt.Color(104, 104, 104));
+        btnProfile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnProfileMouseClicked(evt);
+            }
+        });
+
+        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Pictures\\Figma project\\SMART RT RW\\btnProfile_white.png")); // NOI18N
+
+        javax.swing.GroupLayout btnProfileLayout = new javax.swing.GroupLayout(btnProfile);
+        btnProfile.setLayout(btnProfileLayout);
+        btnProfileLayout.setHorizontalGroup(
+            btnProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        btnProfileLayout.setVerticalGroup(
+            btnProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnProfileLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel7))
+        );
+
+        jPanel1.add(btnProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, -1, 40));
+
+        btnDataWarga.setBackground(new java.awt.Color(104, 104, 104));
+        btnDataWarga.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDataWargaMouseClicked(evt);
+            }
+        });
+
+        jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Pictures\\Figma project\\SMART RT RW\\btnDataWarga_blue.png")); // NOI18N
+
+        javax.swing.GroupLayout btnDataWargaLayout = new javax.swing.GroupLayout(btnDataWarga);
+        btnDataWarga.setLayout(btnDataWargaLayout);
+        btnDataWargaLayout.setHorizontalGroup(
+            btnDataWargaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnDataWargaLayout.createSequentialGroup()
+                .addComponent(jLabel8)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        btnDataWargaLayout.setVerticalGroup(
+            btnDataWargaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnDataWargaLayout.createSequentialGroup()
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(btnDataWarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 212, -1, 40));
+
+        btnDashboard.setBackground(new java.awt.Color(104, 104, 104));
+        btnDashboard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDashboardMouseClicked(evt);
+            }
+        });
+
+        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Pictures\\Figma project\\SMART RT RW\\btnDashboard.png")); // NOI18N
+
+        javax.swing.GroupLayout btnDashboardLayout = new javax.swing.GroupLayout(btnDashboard);
+        btnDashboard.setLayout(btnDashboardLayout);
+        btnDashboardLayout.setHorizontalGroup(
+            btnDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnDashboardLayout.createSequentialGroup()
+                .addComponent(jLabel9)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        btnDashboardLayout.setVerticalGroup(
+            btnDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnDashboardLayout.createSequentialGroup()
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(btnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 190, 40));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Pictures\\Figma project\\SMART RT RW\\frame.png")); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnClose.setBackground(new java.awt.Color(255, 255, 255));
+        btnClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCloseMouseClicked(evt);
+            }
+        });
+
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Pictures\\Figma project\\SMART RT RW\\icon close.png")); // NOI18N
+
+        javax.swing.GroupLayout btnCloseLayout = new javax.swing.GroupLayout(btnClose);
+        btnClose.setLayout(btnCloseLayout);
+        btnCloseLayout.setHorizontalGroup(
+            btnCloseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnCloseLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        btnCloseLayout.setVerticalGroup(
+            btnCloseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnCloseLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 20, 40, 40));
+
+        btnMinimize.setBackground(new java.awt.Color(255, 255, 255));
+        btnMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseClicked(evt);
+            }
+        });
+
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Pictures\\Figma project\\SMART RT RW\\icon minimize.png")); // NOI18N
+
+        javax.swing.GroupLayout btnMinimizeLayout = new javax.swing.GroupLayout(btnMinimize);
+        btnMinimize.setLayout(btnMinimizeLayout);
+        btnMinimizeLayout.setHorizontalGroup(
+            btnMinimizeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnMinimizeLayout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        btnMinimizeLayout.setVerticalGroup(
+            btnMinimizeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnMinimizeLayout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 20, 40, 40));
+
+        tbDataWarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tbDataWarga.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "NIK", "Nama", "No KK", "Tempat Lahir", "Tgl Lahir", "Gender", "Agama", "Pendidikan", "Pekerjaan", "Status ", "Warga Negara"
+            }
+        ));
+        tbDataWarga.setFocusable(false);
+        tbDataWarga.setGridColor(new java.awt.Color(196, 196, 196));
+        tbDataWarga.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tbDataWarga.setRowHeight(25);
+        tbDataWarga.setSelectionBackground(new java.awt.Color(134, 231, 254));
+        tbDataWarga.setShowVerticalLines(false);
+        tbDataWarga.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbDataWargaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbDataWarga);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 950, 600));
+
+        edtNama.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        edtNama.setText("Cari Nama");
+        jPanel2.add(edtNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(689, 90, 220, 40));
+
+        btnCari.setBackground(new java.awt.Color(95, 204, 229));
+        btnCari.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCariMouseClicked(evt);
+            }
+        });
+
+        jLabel5.setBackground(new java.awt.Color(95, 204, 229));
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Pictures\\Figma project\\SMART RT RW\\search_black.png")); // NOI18N
+
+        javax.swing.GroupLayout btnCariLayout = new javax.swing.GroupLayout(btnCari);
+        btnCari.setLayout(btnCariLayout);
+        btnCariLayout.setHorizontalGroup(
+            btnCariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnCariLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btnCariLayout.setVerticalGroup(
+            btnCariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnCariLayout.createSequentialGroup()
+                .addComponent(jLabel5)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(btnCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 90, -1, 40));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Pictures\\Figma project\\SMART RT RW\\Daftar Warga Kelurahan Pagentan.png")); // NOI18N
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 987, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
+        System.exit(EXIT_ON_CLOSE);
+    }//GEN-LAST:event_btnCloseMouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked
+        this.setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_btnMinimizeMouseClicked
+
+    private void btnCariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCariMouseClicked
+        cariNama();
+    }//GEN-LAST:event_btnCariMouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void btnLogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogOutMouseClicked
+        JOptionPane jOptionPane = new JOptionPane();
+        int confirm = JOptionPane.showConfirmDialog(this, "Apakah anda yakin ingin LOG OUT?");
+
+        switch (confirm) {
+            case JOptionPane.YES_OPTION:
+                new Login().setVisible(true);
+                this.setVisible(false);
+                JOptionPane.showMessageDialog(this, "Anda telah Log out");
+            case JOptionPane.NO_OPTION:
+                break;
+        }
+    }//GEN-LAST:event_btnLogOutMouseClicked
+
+    private void btnDataWargaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDataWargaMouseClicked
+        tampilDataWarga();
+    }//GEN-LAST:event_btnDataWargaMouseClicked
+
+    private void btnProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProfileMouseClicked
+        new ProfileAdmin(dataUser.getPassword()).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnProfileMouseClicked
+
+    private void btnDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDashboardMouseClicked
+        new DashboardAdmin(dataUser.getPassword()).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnDashboardMouseClicked
+
+    private void tbDataWargaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDataWargaMouseClicked
+        int baris = tbDataWarga.rowAtPoint(evt.getPoint());
+        int confirm = JOptionPane.showConfirmDialog(this, "Apakah anda ingin menghapusnya ?");
+        String nik = tbDataWarga.getValueAt(baris, 0).toString();
+        String kdDomisili = tbDataWarga.getValueAt(baris, 11).toString();
+        
+        switch (confirm) {
+            case JOptionPane.YES_OPTION:
+                delete(nik, kdDomisili);
+                JOptionPane.showMessageDialog(this, "Data berhasil dihapus");
+                tampilDataWarga();
+            case JOptionPane.NO_OPTION:
+                break;
+        }
+    }//GEN-LAST:event_tbDataWargaMouseClicked
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ListDataWarga.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ListDataWarga.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ListDataWarga.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ListDataWarga.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                //new DataWarga().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel btnCari;
+    private javax.swing.JPanel btnClose;
+    private javax.swing.JPanel btnDashboard;
+    private javax.swing.JPanel btnDataWarga;
+    private javax.swing.JPanel btnLogOut;
+    private javax.swing.JPanel btnMinimize;
+    private javax.swing.JPanel btnProfile;
+    private javax.swing.JTextField edtNama;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbDataWarga;
+    // End of variables declaration//GEN-END:variables
+}

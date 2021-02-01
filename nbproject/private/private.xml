@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/ui/Catatan.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/launcher/Launcher.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/ui/Register.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/model/User.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/ui/user/PengajuanSurat.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/ui/admin/ListDataWarga.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/ui/admin/Konfirmasi.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/ui/admin/DashboardAdmin.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/database/Koneksi.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/model/Domisili.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/ui/admin/ProfileAdmin.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/model/surat/SuratPengantar.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/ui/user/ProfileUser.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/ui/user/DashboardUser.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/database/SmartDatabase.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/database/SmartDao.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/ui/Login.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/ui/RegisterDomisili.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/SmartRTRW/src/model/surat/SuratPengantarDomisili.java</file>
+        </group>
+    </open-files>
+</project-private>
